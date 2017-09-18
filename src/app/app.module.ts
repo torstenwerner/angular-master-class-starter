@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ContactsAppComponent } from './app.component';
 import { ContactsService } from './contacts.service';
@@ -18,7 +19,8 @@ import { ContactsDetailComponent } from './contacts-detail/contacts-detail.compo
     BrowserAnimationsModule,
     MaterialModule,
     FlexLayoutModule,
-    RouterModule.forRoot(APP_ROUTES)
+    RouterModule.forRoot(APP_ROUTES),
+    HttpClientModule
   ],
   bootstrap: [ContactsAppComponent],
   providers: [

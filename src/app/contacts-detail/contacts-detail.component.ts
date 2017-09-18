@@ -1,3 +1,4 @@
+import { Contact } from '../models/contact';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ContactsService } from '../contacts.service';
@@ -9,16 +10,16 @@ import { ContactsService } from '../contacts.service';
 })
 export class ContactsDetailComponent implements OnInit {
 
+  contact: Contact = {
+    id: -1,
+    address: {}
+  };
+
   constructor(private route: ActivatedRoute,
     private contactsService: ContactsService) { }
 
   ngOnInit() {
-  }
-
-  get contact() {
     const id = this.route.snapshot.paramMap.get('id');
-    console.log(this.contactsService.getContact(id));
-    return this.contactsService.getContact(id);
+    this.contactsService.getContact(id).subscribe(contact => this.contact = contact);
   }
-
 }
