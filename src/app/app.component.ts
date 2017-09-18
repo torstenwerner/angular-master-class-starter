@@ -1,6 +1,6 @@
+import { ContactsService } from './contacts.service';
 import { Component } from '@angular/core';
 import { Contact } from './models/contact';
-import { CONTACT_DATA } from './data/contact-data';
 
 @Component({
   selector: 'trm-contacts-app',
@@ -9,5 +9,14 @@ import { CONTACT_DATA } from './data/contact-data';
 })
 export class ContactsAppComponent {
   title = 'Angular Master Class setup works!';
-  contacts: Contact[] = CONTACT_DATA;
+
+  constructor(private contactsService: ContactsService) {}
+
+  get contacts(): Contact[] {
+    return this.contactsService.contacts;
+  }
+
+  trackByContactId(index, contact) {
+    return contact.id;
+  }
 }
