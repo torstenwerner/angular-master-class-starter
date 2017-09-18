@@ -8,7 +8,6 @@ import { Contact } from './models/contact';
   styleUrls: ['./app.component.scss']
 })
 export class ContactsAppComponent {
-  title = 'Angular Master Class setup works!';
 
   constructor(private contactsService: ContactsService) {}
 
