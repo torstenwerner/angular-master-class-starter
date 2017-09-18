@@ -1,3 +1,4 @@
+import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
 import { CONTACT_DATA } from './data/contact-data';
 import { Contact } from './models/contact';
@@ -14,11 +15,11 @@ export class ContactsService {
 
   constructor(private http: HttpClient) { }
 
-  getContacts() {
+  getContacts(): Observable<Array<Contact>> {
     return this.http.get<ContactsResponse>(`${this.API_ENDPOINT}/api/contacts`).map(data => data.items);
   }
 
-  getContact(id) {
+  getContact(id): Observable<Contact> {
     return this.http.get<ContactResponse>(`${this.API_ENDPOINT}/api/contacts/${id}`).map(data => data.item);
   }
 }
