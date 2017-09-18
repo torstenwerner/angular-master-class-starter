@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { MdToolbarModule, MdListModule } from '@angular/material';
+import { MaterialModule } from '@angular/material';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 
@@ -9,13 +9,14 @@ import { ContactsAppComponent } from './app.component';
 import { ContactsService } from './contacts.service';
 import { ContactsListComponent } from './contacts-list/contacts-list.component';
 import { APP_ROUTES } from './app.routes';
+import { ContactsDetailComponent } from './contacts-detail/contacts-detail.component';
 
 @NgModule({
-  declarations: [ContactsAppComponent, ContactsListComponent],
+  declarations: [ContactsAppComponent, ContactsListComponent, ContactsDetailComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    MdToolbarModule, MdListModule,
+    MaterialModule,
     FlexLayoutModule,
     RouterModule.forRoot(APP_ROUTES)
   ],

@@ -7,4 +7,8 @@ export class ContactsService {
   get contacts() {
     return CONTACT_DATA;
   }
+
+  getContact(id) {
+    return CONTACT_DATA.find(contact => contact.id == id);
+  }
 }
