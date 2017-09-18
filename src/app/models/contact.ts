@@ -19,6 +19,7 @@ export interface Contact {
 export function newContact(): Contact {
   return {
     id: -1,
+    image: '',
     address: {}
   };
 }
