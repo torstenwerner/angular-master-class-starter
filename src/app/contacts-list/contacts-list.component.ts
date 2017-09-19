@@ -24,11 +24,14 @@ export class ContactsListComponent implements OnInit {
   constructor(private contactsService: ContactsService) { }
 
   ngOnInit() {
-    this.contacts$ = this.contactsService.getContacts().delay(5000).takeUntil(this.term$)
-      .merge(this.term$
-        .debounceTime(400)
-        .distinctUntilChanged()
-        .switchMap(term => this.contactsService.search(term)));
+    const getInitial$ = this.contactsService.getContacts()
+      .delay(5000)
+      .takeUntil(this.term$);
+    const search$ = this.term$
+      .debounceTime(400)
+      .distinctUntilChanged()
+      .switchMap(term => this.contactsService.search(term));
+    this.contacts$ = getInitial$.merge(search$);
   }
 
   trackByContactId(index, contact) {
