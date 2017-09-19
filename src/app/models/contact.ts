@@ -15,11 +15,3 @@ export interface Contact {
   image?: string;
   address?: Address;
 }
-
-export function newContact(): Contact {
-  return {
-    id: -1,
-    image: '',
-    address: {}
-  };
-}

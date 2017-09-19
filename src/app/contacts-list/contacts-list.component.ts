@@ -25,7 +25,7 @@ export class ContactsListComponent implements OnInit {
 
   ngOnInit() {
     const getInitial$ = this.contactsService.getContacts()
-      .delay(5000)
+      //.delay(5000)
       .takeUntil(this.term$);
     const search$ = this.term$
       .debounceTime(400)

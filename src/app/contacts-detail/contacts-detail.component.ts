@@ -1,22 +1,14 @@
-import { Contact, newContact } from '../models/contact';
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { ContactsService } from '../contacts.service';
+import { Contact } from '../models/contact';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'trm-contacts-detail',
   templateUrl: './contacts-detail.component.html',
   styleUrls: ['./contacts-detail.component.css']
 })
-export class ContactsDetailComponent implements OnInit {
+export class ContactsDetailComponent {
 
-  contact: Contact = newContact();
-
-  constructor(private route: ActivatedRoute,
-    private contactsService: ContactsService) { }
-
-  ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.contactsService.getContact(id).subscribe(contact => this.contact = contact);
-  }
+  @Input() contact: Contact;
+  @Output() back = new EventEmitter();
+  @Output() edit = new EventEmitter();
 }
