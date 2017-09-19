@@ -30,6 +30,6 @@ export class ContactsDetailViewComponent implements OnInit {
   }
 
   edit(contact: Contact) {
-    this.router.navigate(['/contact', contact.id, 'edit']);
+    this.router.navigate(['edit'], { relativeTo: this.route });
   }
 }
