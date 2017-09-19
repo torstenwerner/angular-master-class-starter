@@ -9,6 +9,7 @@ import 'rxjs/add/operator/switchmap';
 import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/takeUntil';
+import { EventBusService } from '../event-bus.service';
 
 @Component({
   selector: 'trm-contacts-list',
@@ -21,7 +22,8 @@ export class ContactsListComponent implements OnInit {
 
   term$ = new Subject<string>();
 
-  constructor(private contactsService: ContactsService) { }
+  constructor(private contactsService: ContactsService,
+    private eventBusService: EventBusService) { }
 
   ngOnInit() {
     const getInitial$ = this.contactsService.getContacts()
@@ -29,6 +31,7 @@ export class ContactsListComponent implements OnInit {
       .takeUntil(this.term$);
     const search$ = this.contactsService.reactiveSearch(this.term$);
     this.contacts$ = getInitial$.merge(search$);
+    this.eventBusService.emit('appTitleChange', 'Contacts');
   }
 
   trackByContactId(index, contact) {

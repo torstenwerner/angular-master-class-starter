@@ -16,6 +16,7 @@ import { ContactsEditorComponent } from './contacts-editor/contacts-editor.compo
 import { ContactsDetailViewComponent } from './contacts-detail-view/contacts-detail-view.component';
 import { TabComponent } from './tabs/tab/tab.component';
 import { TabsComponent } from './tabs/tabs/tabs.component';
+import { EventBusService } from './event-bus.service';
 
 @NgModule({
   declarations: [ContactsAppComponent, ContactsListComponent, ContactsDetailComponent, ContactsEditorComponent,
@@ -31,7 +32,8 @@ import { TabsComponent } from './tabs/tabs/tabs.component';
   ],
   bootstrap: [ContactsAppComponent],
   providers: [
-    ContactsService
+    ContactsService,
+    EventBusService
   ]
 })
 export class ContactsModule {
