@@ -25,8 +25,7 @@ export class TabsComponent implements OnInit {
   }
 
   selectTab(tabComponent: TabComponent) {
-    Observable.from(this.tabComponents)
-      .subscribe(each => each.selected = false);
+    this.tabComponents.forEach(each => each.selected = false);
     tabComponent.selected = true;
   }
 }
