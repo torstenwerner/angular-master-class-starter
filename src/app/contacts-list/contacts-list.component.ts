@@ -5,6 +5,8 @@ import { Observable } from 'rxjs/Observable';
 import { Subject } from 'rxjs/Subject';
 import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
+import 'rxjs/add/operator/switchmap';
+import 'rxjs/add/operator/merge';
 
 @Component({
   selector: 'trm-contacts-list',
@@ -20,11 +22,11 @@ export class ContactsListComponent implements OnInit {
   constructor(private contactsService: ContactsService) { }
 
   ngOnInit() {
-    this.contacts$ = this.contactsService.getContacts();
-    this.term$
-      .debounceTime(400)
-      .distinctUntilChanged()
-      .subscribe(term => this.contacts$ = this.contactsService.search(term));
+    this.contacts$ = this.contactsService.getContacts()
+      .merge(this.term$
+        .debounceTime(400)
+        .distinctUntilChanged()
+        .switchMap(term => this.contactsService.search(term)));
   }
 
   trackByContactId(index, contact) {
