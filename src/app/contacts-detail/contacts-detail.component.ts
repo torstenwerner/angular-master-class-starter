@@ -9,6 +9,6 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 export class ContactsDetailComponent {
 
   @Input() contact: Contact;
-  @Output() back = new EventEmitter();
-  @Output() edit = new EventEmitter();
+  @Output() back = new EventEmitter<void>();
+  @Output() edit = new EventEmitter<Contact>();
 }
