@@ -7,6 +7,8 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/distinctUntilChanged';
 import 'rxjs/add/operator/switchmap';
 import 'rxjs/add/operator/merge';
+import 'rxjs/add/operator/delay';
+import 'rxjs/add/operator/takeUntil';
 
 @Component({
   selector: 'trm-contacts-list',
@@ -22,7 +24,7 @@ export class ContactsListComponent implements OnInit {
   constructor(private contactsService: ContactsService) { }
 
   ngOnInit() {
-    this.contacts$ = this.contactsService.getContacts()
+    this.contacts$ = this.contactsService.getContacts().delay(5000).takeUntil(this.term$)
       .merge(this.term$
         .debounceTime(400)
         .distinctUntilChanged()
