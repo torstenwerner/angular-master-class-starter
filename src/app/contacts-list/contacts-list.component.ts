@@ -27,10 +27,7 @@ export class ContactsListComponent implements OnInit {
     const getInitial$ = this.contactsService.getContacts()
       //.delay(5000)
       .takeUntil(this.term$);
-    const search$ = this.term$
-      .debounceTime(400)
-      .distinctUntilChanged()
-      .switchMap(term => this.contactsService.search(term));
+    const search$ = this.contactsService.reactiveSearch(this.term$);
     this.contacts$ = getInitial$.merge(search$);
   }
 

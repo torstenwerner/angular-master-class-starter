@@ -27,6 +27,12 @@ export class ContactsService {
     return this.http.put<ContactResponse>(`${this.API_ENDPOINT}/api/contacts/${contact.id}`, contact).map(data => data.item);
   }
 
+  reactiveSearch(term$: Observable<string>, debounceMs = 400): Observable<Array<Contact>> {
+    return term$.debounceTime(debounceMs)
+      .distinctUntilChanged()
+      .switchMap(term => this.search(term));
+  }
+
   search(term: string): Observable<Array<Contact>> {
     return this.http.get<ContactsResponse>(`${this.API_ENDPOINT}/api/search?text=${term}`).map(data => data.items);
   }
