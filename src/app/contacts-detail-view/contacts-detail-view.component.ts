@@ -25,9 +25,8 @@ export class ContactsDetailViewComponent implements OnInit {
     private store: Store<ApplicationState>) { }
 
   ngOnInit() {
-    this.contact$ = this.store.select(ContactsQuery.getSelectedContact);
-    this.contact$.take(1).subscribe(contact =>
-      this.eventBusService.emit('appTitleChange', `Details: ${contact.name}`));
+    this.contact$ = this.store.select(ContactsQuery.getSelectedContact)
+      .do(contact => this.eventBusService.emit('appTitleChange', `Details: ${contact.name}`));
   }
 
   back() {
