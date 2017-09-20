@@ -14,12 +14,27 @@ const INITIAL_STATE: ContactsState = {
 export function contactsReducer(state: ContactsState = INITIAL_STATE, action: ContactsActions) {
 
   switch (action.type) {
+
     case ContactsActionTypes.LOAD_CONTACTS_SUCCESS:
       return {
         ...state,
-        list: action.payload,
-        selectedContactId: null
+        list: action.payload
       }
+
+    case ContactsActionTypes.UPDATE_CONTACT:
+      const updatedList = state.list.map(contact =>
+        contact.id == state.selectedContactId ? { ...contact, ...action.payload } : contact);
+      return {
+        ...state,
+        list: updatedList
+      }
+
+    case ContactsActionTypes.SELECT_CONTACT:
+      return {
+        ...state,
+        selectedContactId: action.payload
+      }
+
     default:
       return state;
   }

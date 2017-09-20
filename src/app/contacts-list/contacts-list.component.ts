@@ -32,7 +32,7 @@ export class ContactsListComponent implements OnInit {
   ngOnInit() {
     this.eventBusService.emit('appTitleChange', 'Contacts');
 
-    let query = (state) => state.contacts.list;
+    let query = state => state.contacts.list;
     const getInitial$ = this.store.select(query)
       //.delay(5000)
       .takeUntil(this.term$);
