@@ -8,13 +8,15 @@ const ROOT_REDUCER = {
   votes: voteReducer
 };
 
+function appStoreFactory() {
+  return createStore(combineReducers(ROOT_REDUCER));
+}
+
 export interface ApplicationState {
   votes: VotesState
 }
 
 export const APP_STORE = new InjectionToken<Store<ApplicationState>>('appStore');
 
-export function appStoreFactory() {
-  return createStore(combineReducers(ROOT_REDUCER));
-}
+export const APP_STORE_PROVIDER = { provide: APP_STORE, useFactory: appStoreFactory };
 

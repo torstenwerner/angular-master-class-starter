@@ -11,7 +11,7 @@ import { AppComponent } from "./app.component";
 import { DashboardComponent } from "./components/dashboard.component";
 import { VoterComponent } from "./components/voter.component";
 import { StatusComponent } from "./components/status.component";
-import { APP_STORE, appStoreFactory } from './store/root-reducer';
+import { APP_STORE_PROVIDER } from './store/root-reducer';
 
 @NgModule({
   imports: [
@@ -28,7 +28,7 @@ import { APP_STORE, appStoreFactory } from './store/root-reducer';
     VoterComponent,
     StatusComponent
   ],
-  providers: [{ provide: APP_STORE, useFactory: appStoreFactory }],
+  providers: [APP_STORE_PROVIDER],
   bootstrap: [AppComponent]
 })
 export class AppModule {
