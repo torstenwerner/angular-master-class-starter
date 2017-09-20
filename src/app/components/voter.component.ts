@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
-import { AppStore, VoteActions } from '../store/app-store';
+import { Component, Inject } from '@angular/core';
+import { VoteActions } from '../store/votes/vote-actions';
+import { Store } from 'redux';
+import { APP_STORE, ApplicationState } from '../store/root-reducer';
 
 @Component({
   selector: 'trm-voter',
@@ -26,7 +28,7 @@ export class VoterComponent {
   /**
    * Inject the appstore
    */
-  constructor(private store: AppStore) { }
+  constructor(@Inject(APP_STORE) private store: Store<ApplicationState>) { }
 
   private increment() {
     this.store.dispatch({ type: VoteActions.YES });
