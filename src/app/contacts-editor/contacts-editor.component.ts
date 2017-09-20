@@ -26,7 +26,7 @@ export class ContactsEditorComponent implements OnInit {
 
   ngOnInit() {
     this.contact$ = this.store.select(ContactsQuery.getSelectedContact);
-    this.contact$.subscribe(contact =>
+    this.contact$.take(1).subscribe(contact =>
       this.eventBusService.emit('appTitleChange', `Edit: ${contact.name}`));
   }
 
