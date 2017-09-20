@@ -10,6 +10,9 @@ import 'rxjs/add/operator/merge';
 import 'rxjs/add/operator/delay';
 import 'rxjs/add/operator/takeUntil';
 import { EventBusService } from '../event-bus.service';
+import { Store } from '@ngrx/store';
+import { ApplicationState } from '../state-management';
+import { LoadContactsSuccessAction } from '../state-management/contacts/contacts.actions';
 
 @Component({
   selector: 'trm-contacts-list',
@@ -23,15 +26,27 @@ export class ContactsListComponent implements OnInit {
   term$ = new Subject<string>();
 
   constructor(private contactsService: ContactsService,
-    private eventBusService: EventBusService) { }
+    private eventBusService: EventBusService,
+    private store: Store<ApplicationState>) { }
 
   ngOnInit() {
-    const getInitial$ = this.contactsService.getContacts()
+    this.eventBusService.emit('appTitleChange', 'Contacts');
+
+    let query = (state) => state.contacts.list;
+    const getInitial$ = this.store.select(query)
       //.delay(5000)
       .takeUntil(this.term$);
+
     const search$ = this.contactsService.reactiveSearch(this.term$);
     this.contacts$ = getInitial$.merge(search$);
-    this.eventBusService.emit('appTitleChange', 'Contacts');
+
+    this.contactsService
+      .getContacts()
+      .subscribe(contacts => {
+        this.store.dispatch(
+          new LoadContactsSuccessAction(contacts)
+        );
+      });
   }
 
   trackByContactId(index, contact) {
