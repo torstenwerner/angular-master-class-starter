@@ -1,3 +1,8 @@
+export const VoteActions = {
+  NO: "NO",
+  YES: "YES"
+};
+
 /**
  * To emulate a Redux store, simply
  * support the dispatch(), subscribe() methods and
@@ -8,7 +13,7 @@ export class AppStore {
   /**
    * Accessor to current store state
    */
-  getState():any {
+  getState(): any {
     return this.state;
   }
 
@@ -37,15 +42,17 @@ export class AppStore {
    *
    * @TODO - add your custom actions here!
    */
-  protected reducer(state, action){
-    switch(action) {
-      default : return state;
+  protected reducer(state, action) {
+    switch (action.type) {
+      case VoteActions.YES: return { ...state, counter: state.counter + 1 };
+      case VoteActions.NO: return { ...state, counter: state.counter - 1 };
+      default: return state;
     }
   }
 
   protected listeners = [];
   protected state = {
-    counter : 0
+    counter: 0
   };
 
 }
