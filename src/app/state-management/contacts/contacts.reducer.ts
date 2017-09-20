@@ -1,3 +1,5 @@
+import { createSelector } from '@ngrx/store';
+import { ApplicationState } from '../';
 import { Contact } from '../../models/contact';
 import { ContactsActions, ContactsActionTypes } from './contacts.actions';
 
@@ -45,4 +47,14 @@ export function contactsReducer(state: ContactsState = INITIAL_STATE, action: Co
     default:
       return state;
   }
+}
+
+export namespace ContactsQuery {
+  export const getContacts = (state: ApplicationState) => state.contacts.list;
+  export const isLoaded = (state: ApplicationState) => state.contacts.list.length > 0;
+  export const getSelectedContactId = (state: ApplicationState) => state.contacts.selectedContactId;
+  export const getSelectedContact = createSelector(getContacts, getSelectedContactId, (contacts, id) => {
+    const contact = contacts.find(contact => contact.id == id);
+    return contact ? {...contact} : undefined;
+  })
 }

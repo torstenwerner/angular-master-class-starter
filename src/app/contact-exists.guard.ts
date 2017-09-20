@@ -8,6 +8,7 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
 import 'rxjs/add/operator/do';
 import 'rxjs/add/operator/take';
+import { ContactsQuery } from './state-management/contacts/contacts.reducer'
 
 @Injectable()
 export class ContactExistsGuard implements CanActivate {
@@ -19,7 +20,7 @@ export class ContactExistsGuard implements CanActivate {
     const contactId = route.paramMap.get('id');
     this.store.dispatch(new SelectContactAction(+contactId));
 
-    return this.store.select(state => state.contacts.list.length > 0)
+    return this.store.select(ContactsQuery.isLoaded)
       .take(1)
       .switchMap(loaded => {
         if (loaded) return Observable.of(true);

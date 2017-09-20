@@ -12,6 +12,7 @@ import 'rxjs/add/operator/takeUntil';
 import { EventBusService } from '../event-bus.service';
 import { Store } from '@ngrx/store';
 import { ApplicationState } from '../state-management';
+import { ContactsQuery } from '../state-management/contacts/contacts.reducer'
 import { LoadContactsSuccessAction } from '../state-management/contacts/contacts.actions';
 
 @Component({
@@ -32,8 +33,7 @@ export class ContactsListComponent implements OnInit {
   ngOnInit() {
     this.eventBusService.emit('appTitleChange', 'Contacts');
 
-    let query = state => state.contacts.list;
-    const getInitial$ = this.store.select(query)
+    const getInitial$ = this.store.select(ContactsQuery.getContacts)
       //.delay(5000)
       .takeUntil(this.term$);
 

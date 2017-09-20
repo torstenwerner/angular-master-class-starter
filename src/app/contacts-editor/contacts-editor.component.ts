@@ -1,3 +1,4 @@
+import { EventBusService } from '../event-bus.service';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Contact } from '../models/contact';
@@ -6,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { ApplicationState } from '../state-management';
 import { SelectContactAction, UpdateContactAction } from '../state-management/contacts/contacts.actions';
 import { Observable } from 'rxjs/observable';
+import { ContactsQuery } from '../state-management/contacts/contacts.reducer'
 
 @Component({
   selector: 'trm-contacts-editor',
@@ -19,15 +21,13 @@ export class ContactsEditorComponent implements OnInit {
   constructor(private route: ActivatedRoute,
     private router: Router,
     private contactsService: ContactsService,
+    private eventBusService: EventBusService,
     private store: Store<ApplicationState>) { }
 
   ngOnInit() {
-    const query = state => {
-      const id = state.contacts.selectedContactId;
-      const contact = state.contacts.list.find(contact => contact.id == id);
-      return {...contact};
-    }
-    this.contact$ = this.store.select(query);
+    this.contact$ = this.store.select(ContactsQuery.getSelectedContact);
+    this.contact$.subscribe(contact =>
+      this.eventBusService.emit('appTitleChange', `Edit: ${contact.name}`));
   }
 
   cancel(contact: Contact) {

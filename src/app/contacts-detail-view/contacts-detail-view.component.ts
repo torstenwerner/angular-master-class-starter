@@ -7,6 +7,7 @@ import { ContactsService } from '../contacts.service';
 import { EventBusService } from '../event-bus.service';
 import { Store } from '@ngrx/store'
 import { Observable } from 'rxjs/Observable';
+import { ContactsQuery } from '../state-management/contacts/contacts.reducer'
 
 @Component({
   selector: 'trm-contacts-detail-view',
@@ -24,13 +25,9 @@ export class ContactsDetailViewComponent implements OnInit {
     private store: Store<ApplicationState>) { }
 
   ngOnInit() {
-    const query = state => {
-      const id = state.contacts.selectedContactId;
-      const contact = state.contacts.list.find(contact => contact.id == id);
-      this.eventBusService.emit('appTitleChange', `Details: ${contact.name}`);
-      return {...contact};
-    }
-    this.contact$ = this.store.select(query);
+    this.contact$ = this.store.select(ContactsQuery.getSelectedContact);
+    this.contact$.subscribe(contact =>
+      this.eventBusService.emit('appTitleChange', `Details: ${contact.name}`));
   }
 
   back() {
