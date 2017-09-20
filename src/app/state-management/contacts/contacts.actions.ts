@@ -4,7 +4,8 @@ import { Contact } from '../../models/contact';
 export enum ContactsActionTypes {
   LOAD_CONTACTS_SUCCESS = '[Contacts] Load success',
   UPDATE_CONTACT = '[Contacts] Update contact',
-  SELECT_CONTACT = '[Contacts] Select contact'
+  SELECT_CONTACT = '[Contacts] Select contact',
+  ADD_CONTACT = '[Contacts] Add contact'
 }
 
 export class LoadContactsSuccessAction implements Action {
@@ -22,4 +23,9 @@ export class SelectContactAction implements Action {
   constructor(public payload: number) {}
 }
 
-export type ContactsActions = LoadContactsSuccessAction | UpdateContactAction | SelectContactAction;
+export class AddContactAction implements Action {
+  readonly type = ContactsActionTypes.ADD_CONTACT;
+  constructor(public payload: Contact) {}
+}
+
+export type ContactsActions = LoadContactsSuccessAction | UpdateContactAction | SelectContactAction | AddContactAction;

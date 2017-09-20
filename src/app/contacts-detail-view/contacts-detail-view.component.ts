@@ -24,9 +24,6 @@ export class ContactsDetailViewComponent implements OnInit {
     private store: Store<ApplicationState>) { }
 
   ngOnInit() {
-    const id = this.route.snapshot.paramMap.get('id');
-    this.store.dispatch(new SelectContactAction(+id));
-
     const query = state => {
       const id = state.contacts.selectedContactId;
       const contact = state.contacts.list.find(contact => contact.id == id);

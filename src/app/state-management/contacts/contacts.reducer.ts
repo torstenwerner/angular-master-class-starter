@@ -35,6 +35,13 @@ export function contactsReducer(state: ContactsState = INITIAL_STATE, action: Co
         selectedContactId: action.payload
       }
 
+    case ContactsActionTypes.ADD_CONTACT:
+      const hasAlready = state.list.some(contact => contact.id == action.payload.id);
+      return {
+        ...state,
+        list: hasAlready ? state.list : [...state.list, action.payload]
+      }
+
     default:
       return state;
   }

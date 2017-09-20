@@ -1,3 +1,4 @@
+import { ContactExistsGuard } from './contact-exists.guard';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
@@ -37,7 +38,8 @@ import { ROOT_REDUCER } from './state-management/';
   bootstrap: [ContactsAppComponent],
   providers: [
     ContactsService,
-    EventBusService
+    EventBusService,
+    ContactExistsGuard
   ]
 })
 export class ContactsModule {
